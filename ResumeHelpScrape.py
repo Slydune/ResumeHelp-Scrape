@@ -1,5 +1,6 @@
 from time import sleep
 from selenium import webdriver
+from wordsegment import load,segment
 from bs4 import BeautifulSoup as bs
 import json
 import requests
@@ -125,7 +126,12 @@ class ResumeHelpScrape:
         except:
             pass
 
+    def clean_pf(self, pf):
+        pf.replace('\\u00a','')
+        return pf
 
+    def clean_skills(self, skills):
+        return segment(skills)
 
     def dump_json(self, professional_summary, experience, education, skills, certification, link):
         out_file = open(self.file_name, "a")
